@@ -1,1 +1,1 @@
-# sistema_de_ventas_lachopper
+Este proyecto es para una microempresa llamada LaChopper, en donde se tendra en cuenta varios modulos, dentro de ellos los mas importantes son las ventas, como también la gestión de todo pago fiscal como impuestos y actividades de contribución fiscal
