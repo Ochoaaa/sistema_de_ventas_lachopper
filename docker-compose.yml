@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    container_name: sistema_venta_app
+    ports:
+      - "8085:80"
+    depends_on:
+      - db
+    volumes:
+      - .:/var/www/html
+    environment:
+      - DB_HOST=db
+      - DB_USER=usuario
+      - DB_PASS=contraseña
+      - DB_NAME=sistema_venta
+
+  db:
+    image: mysql:8.0
+    container_name: sistema_venta_db
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpass
+      - MYSQL_DATABASE=sistema_venta
+      - MYSQL_USER=usuario
+      - MYSQL_PASSWORD=contraseña
+    volumes:
+      - ./BD:/docker-entrypoint-initdb.d
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: sistema_venta_phpmyadmin
+    environment:
+      - PMA_HOST=db
+      - PMA_USER=usuario
+      - PMA_PASSWORD=contraseña
+    ports:
+      - "8081:80"
+    depends_on:
+      - db
+
+volumes:
+  db_data:
